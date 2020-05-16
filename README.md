@@ -5,7 +5,7 @@ MVP for Core Safinia Functionality
 
 - https://github.com/wolfgarbe/SymSpell/blob/master/README.md
 - https://www.mayoclinic.org/diseases-conditions
-- Spacy Hunspell
+- https://spacy.io/universe/project/spacy_hunspell
 
 # Pipeline
 
