@@ -8,23 +8,23 @@ import spacy
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
-def expandContractions(phrase):
+def expandContractions(sentence):
     '''
     Simplified version of expanding common English contractions.
     '''
     # specific
-    phrase = re.sub(r"won\'t", "will not", phrase)
-    phrase = re.sub(r"can\'t", "can not", phrase)
+    sentence = re.sub(r"won\'t", "will not", sentence)
+    sentence = re.sub(r"can\'t", "can not", sentence)
     # general
-    phrase = re.sub(r"n\'t", " not", phrase)
-    phrase = re.sub(r"\'re", " are", phrase)
-    phrase = re.sub(r"\'s", " is", phrase)
-    phrase = re.sub(r"\'d", " would", phrase)
-    phrase = re.sub(r"\'ll", " will", phrase)
-    phrase = re.sub(r"\'t", " not", phrase)
-    phrase = re.sub(r"\'ve", " have", phrase)
-    phrase = re.sub(r"\'m", " am", phrase)
-    return phrase
+    sentence = re.sub(r"n\'t", " not", sentence)
+    sentence = re.sub(r"\'re", " are", sentence)
+    sentence = re.sub(r"\'s", " is", sentence)
+    sentence = re.sub(r"\'d", " would", sentence)
+    sentence = re.sub(r"\'ll", " will", sentence)
+    sentence = re.sub(r"\'t", " not", sentence)
+    sentence = re.sub(r"\'ve", " have", sentence)
+    sentence = re.sub(r"\'m", " am", sentence)
+    return sentence
 
 def isQuestion(sentence):
     '''
@@ -53,6 +53,7 @@ text_message = "What is HIV?"
 # Expand contractions
 text_message_dec = expandContractions(text_message)
 
+# Feed to SpaCy
 doc = nlp(text_message_dec)
 
 # Analyze syntax, wording

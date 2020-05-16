@@ -13,4 +13,9 @@ Twilio SMS --> MVP Script --> split by sentences --> correct minor spelling
 
 --> figure out subject of question using SpaCy parts of speech ("What are symptoms of HIV" --> ["HIV", "Symptoms"])
 
---> find appropriate heading in Mayo Clinic website
+--> find appropriate heading in Mayo Clinic website --> return query
+
+# Requirements
+
+    pip install -U spacy
+    python -m spacy download en_core_web_sm
