@@ -11,7 +11,7 @@ nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
 # SymSpell word correction tool
 # Fixes text messages that contain poor grammar/spelling
-sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+sym_spell = SymSpell(max_dictionary_edit_distance=0, prefix_length=7)
 dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
 bigram_path = pkg_resources.resource_filename("symspellpy", "frequency_bigramdictionary_en_243_342.txt")
 sym_spell.load_dictionary(dictionary_path, 0, 1)
@@ -52,6 +52,9 @@ def isQuestion(sentence):
         return True
     return False
 
+def correctGrammarSpelling(sentence):
+    return sym_spell.word_segmentation(sentence[:1].lower() + sentence[1:]).corrected_string
+
 def main():
     # Sample text message
     #text_message = "What is HIV testing? Who's Felix, etc.? what's going on? Multiple sentences."
@@ -62,7 +65,7 @@ def main():
     #text_message = "Where can I get tested for HIV?"
     #text_message = "What are symptoms of HIV?"
     text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
-    #text_message = "."
+    #text_message = "whereis th elove hehad dated forImuch of thepast who "
     #text_message = "symptoms of HIV"
     #text_message = "What does hiv mean?"
     #text_message = "Can you pick out natural language processing?"
@@ -78,17 +81,16 @@ def main():
     # Split by sentences
     sentences = [sent.string.strip() for sent in doc.sents]
 
-    text_message_seg = [sym_spell.lookup_compound(sentence[:1].lower() + sentence[1:], max_edit_distance=2,
-                                            transfer_casing=True) for sentence in sentences]
-    print(sentences)
-    for suggestions in text_message_seg:
-        for s in suggestions:
-            print(s)
+    # TODO BUG Correct grammar/spelling errors
+    # We attempt to use SymSpell to correct errors.
+    # Issues:
+    #   1) Complex medical terms are usually changed
+    #   2) Seemingly not consistent 
+    #sentences_segmented = [correctGrammarSpelling(sentence) for sentence in sentences]
+    #for suggested in sentences_segmented:
+    #    print(suggested)
 
-    for sent in sentences:
-        if not isQuestion(text_message_orig):
-            continue
-        # Pick out subject and possessed quality. Symptoms of HIV --> HIV's symptoms.
+    
 
 
 if __name__=="__main__": 
