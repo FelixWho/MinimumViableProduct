@@ -1,12 +1,21 @@
-# pip install -U spacy
-# python -m spacy download en_core_web_sm
-
+from itertools import islice
 import re
 import spacy
+import pkg_resources
+from symspellpy import SymSpell
 
-# English model, possibly can change ('sm, md, lg, ...')
+# SpaCy English model 
+# Possibly can change to 'sm, md, lg, ...'
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe(nlp.create_pipe('sentencizer'))
+
+# SymSpell word correction tool
+# Fixes text messages that contain poor grammar/spelling
+sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
+bigram_path = pkg_resources.resource_filename("symspellpy", "frequency_bigramdictionary_en_243_342.txt")
+sym_spell.load_dictionary(dictionary_path, 0, 1)
+sym_spell.load_bigram_dictionary(bigram_path, term_index=0, count_index=2)
 
 def expandContractions(sentence):
     '''
@@ -34,11 +43,11 @@ def isQuestion(sentence):
     question_beginners = ["is", "does", "do", "what", "when", "where", "who", "why", "what", "how"]
     
     sentence = sentence.strip() # remove beginning/end whitespace
-    doc = nlp(sentence)
+    par = nlp(sentence)
 
-    if doc[len(doc)-1].is_punct:
+    if par[len(par)-1].text == "?":
         return True
-    first_word = doc[0].text.lower()
+    first_word = par[0].text.lower()
     if first_word in question_beginners:
         return True
     return False
@@ -46,18 +55,38 @@ def isQuestion(sentence):
 # Sample text message
 #text_message = "What is HIV testing? Who's Felix, etc.? what's going on? Multiple sentences."
 #text_message = "What is HIV?"
+#text_message = "hiv?"
+#text_message = "myheadisHIV?"
+#text_message = "mynameisFelixwhat'syours?"
 #text_message = "Where can I get tested for HIV?"
 #text_message = "What are symptoms of HIV?"
+text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
 #text_message = "symptoms of HIV"
 #text_message = "What does hiv mean?"
-text_message = "Can you pick out natural language processing?"
+#text_message = "Can you pick out natural language processing?"
 
-# Expand contractions
-text_message_dec = expandContractions(text_message)
+# Preprocessing text
+text_message_orig = text_message # preserve original
+text_message_f = text_message.lower() # lowercase
+text_message_f = expandContractions(text_message_f) # expand contractions
 
 # Feed to SpaCy
-doc = nlp(text_message_dec)
+doc = nlp(text_message_f)
 
 # Analyze syntax, wording
-print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
-print("Sentences: ", [sent.string.strip() for sent in doc.sents])
+sentences = [sent.string.strip() for sent in doc.sents]
+#print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
+
+# TODO lowercase all the FIRST words of each sentence
+#
+#
+text_message_seg = [sym_spell.lookup_compound(sentence[:1].lower() + sentence[1:], max_edit_distance=2,
+                                        transfer_casing=True) for sentence in sentences]
+print(sentences)
+for text in text_message_seg:
+    print(text)
+
+for sent in sentences:
+    if not isQuestion(text_message_orig):
+        continue
+    # Pick out subject and possessed quality. Symptoms of HIV --> HIV's symptoms.

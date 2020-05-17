@@ -20,3 +20,4 @@ Twilio SMS --> MVP Script --> split by sentences --> correct minor spelling
     pip install -U spacy
     python -m spacy download en_core_web_sm
     pip install beautifulsoup4
+    python -m pip install -U symspellpy
