@@ -44,11 +44,13 @@ def isQuestion(sentence):
     return False
 
 # Sample text message
-#text_message = "What is HIV testing? Who's Felix, etc.? what's going on?"
-text_message = "What is HIV?"
+#text_message = "What is HIV testing? Who's Felix, etc.? what's going on? Multiple sentences."
+#text_message = "What is HIV?"
 #text_message = "Where can I get tested for HIV?"
 #text_message = "What are symptoms of HIV?"
 #text_message = "symptoms of HIV"
+#text_message = "What does hiv mean?"
+text_message = "Can you pick out natural language processing?"
 
 # Expand contractions
 text_message_dec = expandContractions(text_message)
