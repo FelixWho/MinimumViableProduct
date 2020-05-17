@@ -15,6 +15,10 @@ Twilio SMS --> MVP Script --> split by sentences --> correct minor spelling
 
 --> find appropriate heading in Mayo Clinic website --> return query
 
+# Safinia.py
+
+Takes in text message. Splits message into sentences using SpaCy. Corrects sentence grammer/spelling with SymSpell. Determine if sentence is question or not.
+
 # Requirements
 
     pip install -U spacy

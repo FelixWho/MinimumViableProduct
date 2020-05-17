@@ -52,41 +52,44 @@ def isQuestion(sentence):
         return True
     return False
 
-# Sample text message
-#text_message = "What is HIV testing? Who's Felix, etc.? what's going on? Multiple sentences."
-#text_message = "What is HIV?"
-#text_message = "hiv?"
-#text_message = "myheadisHIV?"
-#text_message = "mynameisFelixwhat'syours?"
-#text_message = "Where can I get tested for HIV?"
-#text_message = "What are symptoms of HIV?"
-text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
-#text_message = "symptoms of HIV"
-#text_message = "What does hiv mean?"
-#text_message = "Can you pick out natural language processing?"
+def main():
+    # Sample text message
+    #text_message = "What is HIV testing? Who's Felix, etc.? what's going on? Multiple sentences."
+    #text_message = "What is HIV?"
+    #text_message = "hiv?"
+    #text_message = "myheadisHIV?"
+    #text_message = "mynameisFelixwhat'syours?"
+    #text_message = "Where can I get tested for HIV?"
+    #text_message = "What are symptoms of HIV?"
+    text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
+    #text_message = "."
+    #text_message = "symptoms of HIV"
+    #text_message = "What does hiv mean?"
+    #text_message = "Can you pick out natural language processing?"
 
-# Preprocessing text
-text_message_orig = text_message # preserve original
-text_message_f = text_message.lower() # lowercase
-text_message_f = expandContractions(text_message_f) # expand contractions
+    # Preprocessing text
+    text_message_orig = text_message # preserve original
+    #text_message_f = text_message.lower() # lowercase
+    text_message_f = expandContractions(text_message) # expand contractions
 
-# Feed to SpaCy
-doc = nlp(text_message_f)
+    # Feed to SpaCy
+    doc = nlp(text_message_f)
 
-# Analyze syntax, wording
-sentences = [sent.string.strip() for sent in doc.sents]
-#print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
+    # Split by sentences
+    sentences = [sent.string.strip() for sent in doc.sents]
 
-# TODO lowercase all the FIRST words of each sentence
-#
-#
-text_message_seg = [sym_spell.lookup_compound(sentence[:1].lower() + sentence[1:], max_edit_distance=2,
-                                        transfer_casing=True) for sentence in sentences]
-print(sentences)
-for text in text_message_seg:
-    print(text)
+    text_message_seg = [sym_spell.lookup_compound(sentence[:1].lower() + sentence[1:], max_edit_distance=2,
+                                            transfer_casing=True) for sentence in sentences]
+    print(sentences)
+    for suggestions in text_message_seg:
+        for s in suggestions:
+            print(s)
 
-for sent in sentences:
-    if not isQuestion(text_message_orig):
-        continue
-    # Pick out subject and possessed quality. Symptoms of HIV --> HIV's symptoms.
+    for sent in sentences:
+        if not isQuestion(text_message_orig):
+            continue
+        # Pick out subject and possessed quality. Symptoms of HIV --> HIV's symptoms.
+
+
+if __name__=="__main__": 
+    main()
