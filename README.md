@@ -6,6 +6,10 @@ MVP for Core Safinia Functionality
 - https://github.com/wolfgarbe/SymSpell/blob/master/README.md
 - https://www.mayoclinic.org/diseases-conditions
 - https://spacy.io/universe/project/spacy_hunspell
+- https://cs.pomona.edu/~dkauchak/simplification/
+- https://github.com/miso-belica/sumy
+- https://github.com/XingxingZhang/pysari
+- https://github.com/deepmipt/DeepPavlov
 
 # Pipeline
 
@@ -23,5 +27,6 @@ Takes in text message. Splits message into sentences using SpaCy. Corrects sente
 
     pip install -U spacy
     python -m spacy download en_core_web_sm
+    python -m spacy download en_core_web_lg # read timeout
     pip install beautifulsoup4
     python -m pip install -U symspellpy
