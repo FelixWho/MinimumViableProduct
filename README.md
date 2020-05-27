@@ -23,6 +23,17 @@ Twilio SMS --> MVP Script --> split by sentences --> correct minor spelling
 
 Takes in text message. Splits message into sentences using SpaCy. Corrects sentence grammer/spelling with SymSpell. Determine if sentence is question or not.
 
+# Database Intents
+
+- Description
+- Symptoms
+- Testing Methodology
+- Treatment Options, Average Cost of Treatment
+- Cause
+- Infectiousness (how it's spread)
+- Risk Factors
+- Prevention Measures
+
 # Requirements
 
     pip install -U spacy

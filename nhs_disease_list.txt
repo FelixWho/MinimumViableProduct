@@ -2,11 +2,7 @@ Abdominal aortic aneurysm
 Acne
 Acute cholecystitis
 Acute lymphoblastic leukaemia
-Acute lymphoblastic leukaemia: Children
-Acute lymphoblastic leukaemia: Teenagers and young adults
 Acute myeloid leukaemia
-Acute myeloid leukaemia: Children
-Acute myeloid leukaemia: Teenagers and young adults
 Acute pancreatitis
 Addison's disease
 Alcohol-related liver disease
@@ -35,14 +31,11 @@ Bipolar disorder
 Bladder cancer
 Blood poisoning (sepsis)
 Bone cancer
-Bone cancer: Teenagers and young adults
 Bowel cancer
 Bowel incontinence
 Bowel polyps
 Brain stem death
 Brain tumours
-Brain tumours: Children
-Brain tumours: Teenagers and young adults
 Breast cancer (female)
 Breast cancer (male)
 Bronchiectasis
@@ -105,7 +98,6 @@ Epilepsy
 Erectile dysfunction (impotence)
 Escherichia coli (E. coli) O157
 Ewing sarcoma
-Ewing sarcoma: Children
 Eye cancer
 Febrile seizures
 Fever in children
@@ -143,8 +135,6 @@ Hiatus hernia
 High cholesterol
 HIV
 Hodgkin lymphoma
-Hodgkin lymphoma: Children
-Hodgkin lymphoma: Teenagers and young adults
 Huntington's disease
 Hyperglycaemia (high blood sugar)
 Hyperhidrosis
@@ -199,11 +189,9 @@ Meniere's disease
 Nasal and sinus cancer
 Nasopharyngeal cancer
 Neuroblastoma
-Neuroblastoma: Children
 Neuroendocrine tumours
 Non-alcoholic fatty liver disease (NAFLD)
 Non-Hodgkin lymphoma
-Non-Hodgkin lymphoma: Children
 Norovirus
 Nosebleed
 Obesity
@@ -216,7 +204,6 @@ Osteoporosis
 Osteosarcoma
 Otitis externa
 Ovarian cancer
-Ovarian cancer: Teenagers and young adults
 Ovarian cyst
 Overactive thyroid
 Paget's disease of the nipple
@@ -243,7 +230,6 @@ Raynaud's phenomenon
 Reactive arthritis
 Restless legs syndrome
 Retinoblastoma
-Retinoblastoma: Children
 Rhabdomyosarcoma
 Rheumatoid arthritis
 Ringworm and other fungal infections
@@ -263,7 +249,6 @@ Skin cancer (melanoma)
 Skin cancer (non-melanoma)
 Slapped cheek syndrome
 Soft tissue sarcomas
-Soft tissue sarcomas: Teenagers and young adults
 Sore throat
 Spleen problems and spleen removal
 Stillbirth
@@ -277,13 +262,11 @@ Suicide
 Sunburn
 Swollen glands
 Testicular cancer
-Testicular cancer: Teenagers and young adults
 Testicular lumps and swellings
 Thirst
 Threadworms
 Thrush in men
 Thyroid cancer
-Thyroid cancer: Teenagers and young adults
 Tinnitus
 Tonsillitis
 Tooth decay
