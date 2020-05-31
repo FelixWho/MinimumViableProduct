@@ -4,7 +4,7 @@ from deeppavlov import train_model
 
 from tensorflow import keras
 import os
-import numpy as np 
+import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
@@ -135,13 +135,13 @@ cnn_config = {
     "validation_patience": 5,
     "val_every_n_epochs": 1,
     "log_every_n_epochs": 1,
-    "show_examples": True,
+    "show_examples": False,
     "validate_best": True,
     "test_best": False
     }
 }
 
 m = build_model(cnn_config)
-print(m(["What is heat stroke in detail?"]))
+print(m(["What is heat stroke in detail?"])) #test
 
 
