@@ -6,7 +6,7 @@ from symspellpy import SymSpell
 
 # SpaCy English model 
 # Possibly can change to 'sm, md, lg, ...'
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
 # SymSpell word correction tool
