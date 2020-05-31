@@ -6,6 +6,16 @@ MVP for Core Safinia Functionality
 - https://github.com/wolfgarbe/SymSpell/blob/master/README.md
 - https://www.mayoclinic.org/diseases-conditions
 - https://spacy.io/universe/project/spacy_hunspell
+- https://cs.pomona.edu/~dkauchak/simplification/
+- https://github.com/miso-belica/sumy
+- https://github.com/XingxingZhang/pysari
+- https://github.com/deepmipt/DeepPavlov
+- WikiLarge/WikiSmall datasets
+- https://nlpforhackers.io/libraries/ #lists NLP libraries
+- https://www.aclweb.org/anthology/W14-1207.pdf #medical text simplification using synonym replacement
+- https://www.grammarly.com/blog/engineering/plainly-speaking-a-linguistic-approach-to-simplifying-complex-words/
+- https://github.com/deepmipt/DeepPavlov/blob/master/examples/classification_tutorial.ipynb
+- https://www.kaggle.com/kageyama/deeppavlov-news-category-classification
 
 # Pipeline
 
@@ -19,9 +29,23 @@ Twilio SMS --> MVP Script --> split by sentences --> correct minor spelling
 
 Takes in text message. Splits message into sentences using SpaCy. Corrects sentence grammer/spelling with SymSpell. Determine if sentence is question or not.
 
+# Database Intents
+
+- Description
+- Symptoms
+- Testing Methodology
+- Treatment Options, Average Cost of Treatment
+- Cause
+- Infectiousness (how it's spread)
+- Risk Factors
+- Prevention Measures
+
 # Requirements
 
     pip install -U spacy
     python -m spacy download en_core_web_sm
+    python -m spacy download en_core_web_lg # read timeout
     pip install beautifulsoup4
     python -m pip install -U symspellpy
+    pip install deeppavlov
+    pip install gensim

@@ -53,6 +53,7 @@ def isQuestion(sentence):
     return False
 
 def correctGrammarSpelling(sentence):
+    # More rigorous check would be sym_spell.lookup_compound()
     return sym_spell.word_segmentation(sentence[:1].lower() + sentence[1:]).corrected_string
 
 def main():
@@ -64,11 +65,11 @@ def main():
     #text_message = "mynameisFelixwhat'syours?"
     #text_message = "Where can I get tested for HIV?"
     #text_message = "What are symptoms of HIV?"
-    text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
+    #text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
     #text_message = "whereis th elove hehad dated forImuch of thepast who "
-    #text_message = "symptoms of HIV"
-    #text_message = "What does hiv mean?"
-    #text_message = "Can you pick out natural language processing?"
+    text_message = "What are symptoms of hiv?"
+    #text_message = "HIV's symptoms"
+    #text_message = "Conor's dog's toy was hidden under the man's sofa in the woman's house"
 
     # Preprocessing text
     text_message_orig = text_message # preserve original
@@ -76,7 +77,7 @@ def main():
     text_message_f = expandContractions(text_message) # expand contractions
 
     # Feed to SpaCy
-    doc = nlp(text_message_f)
+    doc = nlp(text_message_orig)
 
     # Split by sentences
     sentences = [sent.string.strip() for sent in doc.sents]
@@ -90,7 +91,7 @@ def main():
     #for suggested in sentences_segmented:
     #    print(suggested)
 
-    
+    print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
 
 
 if __name__=="__main__": 
