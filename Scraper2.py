@@ -68,6 +68,6 @@ for disease in diseases:
     data[disease]["MayoClinic"] = mayo_dict[best]
 
 converted_data = json.dumps(data)
-out = open("database_with_causes.txt", "w")
+out = open("database_with_links.txt", "w")
 out.write(converted_data)
 out.close()   
