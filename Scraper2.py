@@ -58,6 +58,9 @@ for disease in diseases:
     doc1 = nlp(disease.lower())
     best = ""
     value = -1.0 
+    if disease.lower() in mayo_dict.keys():
+        data[disease]["MayoClinic"] = mayo_dict[disease.lower()]
+        continue
     for item in mayo_dict.keys():
         #print(item)
         doc2 = nlp(item)
