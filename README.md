@@ -52,8 +52,10 @@ Be sure to delete any pre-existing models beforehand.
 
     pip install -U spacy
     python -m spacy download en_core_web_sm
-    python -m spacy download en_core_web_lg # read timeout
+    python -m spacy download en_core_web_lg # possible read timeout
     pip install beautifulsoup4
     python -m pip install -U symspellpy
     pip install deeppavlov
     pip install gensim
+    pip install networkx
+    pip install textstat
