@@ -1,5 +1,5 @@
-# Find associated MayoClinic entry
-# https://www.mayoclinic.org/diseases-conditions/index?letter=a
+# Find associated MedlinePlus Encyclopedia entry
+# https://medlineplus.gov/ency/encyclopedia_A.htm
 
 import html
 from html.parser import HTMLParser
@@ -10,10 +10,10 @@ from bs4 import BeautifulSoup
 import json
 import pandas as pd
 import urllib.parse
-from string import ascii_lowercase
+from string import ascii_uppercase
 import spacy
 import editdistance
-
+#import Summarize
 
 def removeParen(text):
     ret = ""
@@ -27,13 +27,17 @@ def removeParen(text):
             inRange = max(0, inRange-1)
     return ret.strip()
 
+def removeDash(text):
+    sp = text.split(" - ")
+    return sp[0]
+
 nlp = spacy.load('en_core_web_lg') 
 
-mayo_dict = {}
+medline_dict = {}
 
-# get all diseases off of Mayo Clinic
-for c in ascii_lowercase:
-    url = "https://www.mayoclinic.org/diseases-conditions/index?letter="+c
+# get all diseases off of MedlinePlus
+for c in ascii_uppercase:
+    url = "https://medlineplus.gov/ency/encyclopedia_"+c+".htm"
     try:
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'})
         webpage = urlopen(req).read().decode('utf-8')
@@ -41,16 +45,17 @@ for c in ascii_lowercase:
         error_message = e.read()
         print(error_message)
     soup = BeautifulSoup(webpage, 'html.parser')
-    main_body = soup.find("div", {"class": "index content-within"})
-    list_element = [(removeParen(html.unescape(x.text.strip())), "https://www.mayoclinic.org"+x.find("a", href=True)["href"]) for x in main_body.findAll("li")]
+    main_body = soup.find("ul", {"id": "index"})
+    list_element = [(removeDash(removeParen(html.unescape(x.text.strip()))), "https://medlineplus.gov/ency/"+x.find("a", href=True)["href"]) for x in main_body.findAll("li")]
     for item in list_element:
-        mayo_dict[item[0].lower()] = item[1]
+        medline_dict[item[0].lower()] = item[1]
+        #print(item[0]+" : "+item[1])
 
 #
-# trying to match database diseases with mayo clinic diseases
+# trying to match database diseases with medlineplus diseases
 #
 
-with open('./database.txt') as jsonfile:
+with open('./database_with_mayolinks.txt') as jsonfile:
     data = json.load(jsonfile)
 
 diseases = data.keys() # top level data
@@ -60,13 +65,13 @@ for disease in diseases:
     print("Currently on disease: "+disease)
     doc1 = nlp(disease.lower())
     best = ""
-    value = -1.0
+    value = -1.0 
     lowest_edit_distance = 1000
     best_using_dist = ""
-    if disease.lower() in mayo_dict.keys():
-        data[disease]["MayoClinic"] = mayo_dict[disease.lower()]
+    if disease.lower() in medline_dict.keys():
+        data[disease]["Medline"] = medline_dict[disease.lower()]
         continue
-    for item in mayo_dict.keys():
+    for item in medline_dict.keys():
         #print(item)
         dist = editdistance.eval(disease.lower(), item)
         if dist < lowest_edit_distance:
@@ -78,11 +83,11 @@ for disease in diseases:
             best = item
             value = sim
     if value > 0:
-        data[disease]["MayoClinic"] = mayo_dict[best]
-    else: 
-        data[disease]["MayoClinic"] = mayo_dict[best_using_dist]
+        data[disease]["Medline"] = medline_dict[best]
+    else:
+        data[disease]["Medline"] = medline_dict[best_using_dist]
 
 converted_data = json.dumps(data)
-out = open("database_with_mayolinks.txt", "w")
+out = open("database_with_mayo_and_medline_links.txt", "w")
 out.write(converted_data)
 out.close()   

@@ -1,3 +1,5 @@
+# Do not use, script fails to work. Instead, try IntentTrainerUsingConfig.py
+
 # deeppavlov
 from deeppavlov.dataset_readers.basic_classification_reader import BasicClassificationDatasetReader
 from deeppavlov.dataset_iterators.basic_classification_iterator import BasicClassificationDatasetIterator
