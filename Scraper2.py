@@ -10,9 +10,11 @@ from bs4 import BeautifulSoup
 import json
 import pandas as pd
 import urllib.parse
+import Summarize
 
-data = json.loads("database.txt")
+with open('./database.txt') as jsonfile:
+    data = json.load(jsonfile)
 
 diseases = data.keys() # top level data
 
-
+print(diseases)

@@ -7,7 +7,7 @@ from symspellpy import SymSpell
 # SpaCy English model 
 # Possibly can change to 'sm, md, lg, ...'
 nlp = spacy.load("en_core_web_lg")
-nlp.add_pipe(nlp.create_pipe('sentencizer'))
+nlp.add_pipe(nlp.create_pipe('sentencizer'), before="parser")
 
 # SymSpell word correction tool
 # Fixes text messages that contain poor grammar/spelling
@@ -67,7 +67,7 @@ def main():
     #text_message = "What are symptoms of HIV?"
     #text_message = "Whatare symptomsof HIV? Hi my name is Felix Hu!"
     #text_message = "whereis th elove hehad dated forImuch of thepast who "
-    text_message = "What are symptoms of hiv?"
+    text_message = "What are symptoms of HIV?"
     #text_message = "HIV's symptoms"
     #text_message = "Conor's dog's toy was hidden under the man's sofa in the woman's house"
 
@@ -90,7 +90,7 @@ def main():
     #sentences_segmented = [correctGrammarSpelling(sentence) for sentence in sentences]
     #for suggested in sentences_segmented:
     #    print(suggested)
-
+    print(doc.ents)
     print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
 
 

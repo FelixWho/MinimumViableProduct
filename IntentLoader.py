@@ -135,7 +135,7 @@ cnn_config = {
     "validation_patience": 5,
     "val_every_n_epochs": 1,
     "log_every_n_epochs": 1,
-    "show_examples": False,
+    "show_examples": True,
     "validate_best": True,
     "test_best": False
     }

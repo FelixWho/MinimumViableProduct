@@ -40,6 +40,14 @@ Takes in text message. Splits message into sentences using SpaCy. Corrects sente
 - Risk Factors
 - Prevention Measures
 
+### Steps to train intent model with deeppavlov
+
+Be sure to delete any pre-existing models beforehand.
+
+    python IntentTrainingDataBuilder.py # writes to train.csv file in Raw Data
+    python IntentTrainerUsingConfig.py # train using configuration
+    python IntentLoader.py # build the model back up
+
 # Requirements
 
     pip install -U spacy

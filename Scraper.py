@@ -55,6 +55,7 @@ for d in disease_list:
     description_long = " ".join(html.unescape(x.text) for x in soup.findAll("div", {"data-attrid": "kc:/medicine/disease:long description"}))
     infectiousness = [html.unescape(x.text) for x in soup.findAll("div", {"data-attrid": "kc:/medicine/disease:how it spreads"})]
     name = " ".join(html.unescape(x.text) for x in soup.findAll("span", {"class": "xEaFBe"}))
+    name = name.lower() # normalize
     data[name] = {}
     if infectiousness:
         data[name]["infectiousness"] = infectiousness

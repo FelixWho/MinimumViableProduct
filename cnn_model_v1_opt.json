@@ -1,6 +1,6 @@
 {
   "embedding_size": 100,
-  "n_classes": 4,
+  "n_classes": 6,
   "model_name": "cnn_model",
   "optimizer": "Adam",
   "loss": "categorical_crossentropy",
