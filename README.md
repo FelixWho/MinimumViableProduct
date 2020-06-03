@@ -16,6 +16,7 @@ MVP for Core Safinia Functionality
 - https://www.grammarly.com/blog/engineering/plainly-speaking-a-linguistic-approach-to-simplifying-complex-words/
 - https://github.com/deepmipt/DeepPavlov/blob/master/examples/classification_tutorial.ipynb
 - https://www.kaggle.com/kageyama/deeppavlov-news-category-classification
+- https://www.uofmhealth.org/health-library # medicine terminology library
 
 # Pipeline
 
@@ -60,3 +61,4 @@ Be sure to delete any pre-existing models beforehand.
     pip install networkx
     pip install textstat
     pip install editdistance
+    python -m deeppavlov install squad_bert

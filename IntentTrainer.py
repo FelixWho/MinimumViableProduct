@@ -1,4 +1,4 @@
-# Do not use, script fails to work. Instead, try IntentTrainerUsingConfig.py
+# DEPRECATED Do not use, script fails to work. Instead, try IntentTrainerUsingConfig.py
 
 # deeppavlov
 from deeppavlov.dataset_readers.basic_classification_reader import BasicClassificationDatasetReader

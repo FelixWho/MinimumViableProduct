@@ -10,9 +10,9 @@ import spacy
 import re
 import textstat
 
-print("Setting up SpaCy large (lg) english corpus...")
+print("Setting up SpaCy large (lg) english corpus (Summarize.py)...")
 nlp = spacy.load("en_core_web_lg")
-nlp.add_pipe(nlp.create_pipe('sentencizer'))
+nlp.add_pipe(nlp.create_pipe('sentencizer'), before="parser")
 
 def break_sentences(text): 
     doc = nlp(text)
@@ -51,13 +51,13 @@ def expandContractions(sentence):
     return sentence
 
 def normalizeSentences(text):
-    doc = nlp(text.lower())
-    sentences = [re.sub(r'[^a-zA-Z]', ' ', expandContractions(sent.text)).strip() for sent in doc.sents]
+    doc = nlp(text)
+    sentences = [re.sub(r'[^a-zA-Z]', ' ', expandContractions(sent.text)).strip().lower() for sent in doc.sents]
     sentences = list(filter(None, sentences))
     
-    ret = [post_process_text(x) for x in sentences]
+    ret1 = [post_process_text(x) for x in sentences]
 
-    return ret
+    return (ret1, [sent.text for sent in doc.sents])
 
 def post_process_text(text):
     '''
@@ -91,27 +91,32 @@ def calc_similarity(sentences):
             similarity_matrix[idx1][idx2] = a.similarity(b)
     return similarity_matrix
 
-def main():
-    top_n = 2
-    text="In an attempt to build an AI-ready workforce, Microsoft announced Intelligent Cloud Hub which has been launched to empower the next generation of students with AI-ready skills. Envisioned as a three-year collaborative program, Intelligent Cloud Hub will support around 100 institutions with AI infrastructure, course content and curriculum, developer support, development tools and give students access to cloud and AI services. As part of the program, the Redmond giant which wants to expand its reach and is planning to build a strong developer ecosystem in India with the program will set up the core AI infrastructure and IoT Hub for the selected campuses. The company will provide AI development tools and Azure AI services such as Microsoft Cognitive Services, Bot Services and Azure Machine Learning.According to Manish Prakash, Country General Manager-PS, Health and Education, Microsoft India, said, \"With AI being the defining technology of our time, it is transforming lives and industry and the jobs of tomorrow will require a different skillset. This will require more collaborations and training and working with AI. That’s why it has become more critical than ever for educational institutions to integrate new cloud and AI technologies. The program is an attempt to ramp up the institutional set-up and build capabilities among the educators to educate the workforce of tomorrow.\" The program aims to build up the cognitive skills and in-depth understanding of developing intelligent cloud connected solutions for applications across industry. Earlier in April this year, the company announced Microsoft Professional Program In AI as a learning track open to the public. The program was developed to provide job ready skills to programmers who wanted to hone their skills in AI and data science with a series of online courses which featured hands-on labs and expert instructors as well. This program also included developer-focused AI school that provided a bunch of assets to help build AI skills."
+def shorten(text, ratio):
     
-    sentences = normalizeSentences(text)
-    print("Cleaning sentences")
+    obj = normalizeSentences(text)
+    sentences = obj[0]
+    orig_sentences = obj[1]
+    #print("Cleaning sentences")
+    #print(orig_sentences)
+    
+    top_n = int(ratio*len(orig_sentences))
 
     similarity_matrix = calc_similarity(sentences)
-    print("Calculate sentence cross-similarity")
+    #print("Calculate sentence cross-similarity")
 
     sentence_similarity_graph = nx.from_numpy_array(similarity_matrix)
     scores = nx.pagerank(sentence_similarity_graph)
-    print("Page rank sentences")
+    #print("Page rank sentences")
+    #print(scores)
 
-    summarized_text = []
-    ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(sentences)), reverse=True)    
+    summarized_text = ""
+    ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(orig_sentences)), reverse=True)
+    #print(ranked_sentence)
+
     #print("Indexes of top ranked_sentence order are ", ranked_sentence)
     for i in range(top_n):
-        summarized_text.append(" ".join(ranked_sentence[i][1]))
+        summarized_text += ranked_sentence[i][1]+" "
     
-    #print("Summarize Text: \n", ". ".join(summarized_text))
+    summarized_text = summarized_text.strip()
 
-if __name__=="__main__": 
-    main()
+    return summarized_text

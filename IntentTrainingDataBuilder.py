@@ -71,6 +71,8 @@ for line in f:
     out.writerow(["what causes "+line,"Cause"])
     out.writerow(["what causes "+line+"?","Cause"])
     out.writerow(["can you tell me the causes of "+line,"Cause"])
+    out.writerow(["what leads to "+line,"Cause"])
+    out.writerow(["what leads to "+line+"?","Cause"])
 
     # treatment
     out.writerow([line+" treatments?","Treatment"])
@@ -102,5 +104,28 @@ for line in f:
     out.writerow(["how did i get " +line+"?","Infectiousness"])
     out.writerow(["how do people get " +line,"Infectiousness"])
     out.writerow(["how do you get " +line+"?","Infectiousness"])
+
+    #prevention
+    out.writerow(["how do you prevent "+line,"Prevention"])
+    out.writerow(["how do you prevent "+line+"?","Prevention"])
+    out.writerow(["can i not get "+line,"Prevention"])
+    out.writerow(["how to avoid "+line,"Prevention"])
+    out.writerow(["prevention technique for "+line,"Prevention"])
+    out.writerow(["prevention of "+line,"Prevention"])
+    out.writerow(["how to decrease chance of contracting "+line,"Prevention"])
+    out.writerow(["decrease the risk of contracting "+line,"Prevention"])
+    out.writerow(["how to stop getting "+line,"Prevention"])
+
+    #screening
+    out.writerow(["how is "+line+" test for?","Screening"])
+    out.writerow(["how is "+line+" screened?","Screening"])
+    out.writerow([line+" screening technique","Screening"])
+    out.writerow([line+" screening","Screening"])
+    out.writerow(["screening for "+line,"Screening"])
+    out.writerow(["scanning for "+line+"?","Screening"])
+    out.writerow([line+" testing technique","Screening"])
+    out.writerow(["how do doctors know if i have "+line,"Screening"])
+    out.writerow(["what method is used to test for "+ line+"?","Screening"])
+    out.writerow(["can this tell if i have "+line,"Screening"])
 
 f.close()

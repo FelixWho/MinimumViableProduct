@@ -48,7 +48,8 @@ for c in ascii_uppercase:
     main_body = soup.find("ul", {"id": "index"})
     list_element = [(removeDash(removeParen(html.unescape(x.text.strip()))), "https://medlineplus.gov/ency/"+x.find("a", href=True)["href"]) for x in main_body.findAll("li")]
     for item in list_element:
-        medline_dict[item[0].lower()] = item[1]
+        if item[0].lower() not in medline_dict.keys():
+            medline_dict[item[0].lower()] = item[1]
         #print(item[0]+" : "+item[1])
 
 #
