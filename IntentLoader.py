@@ -22,8 +22,11 @@ def getResult(query):
     dict_equiv = {"Treatment": "treatment_simple", "Symptom":"symptoms_description", "ShortDescription": "description_short","LongDescription": "description_long","Infectiousness": "infectiousness","Cause" : "cause", "Prevention": "prevention", "Screening":"screening"}
 
     with open('./database_with_mayo_and_medline_links.txt') as jsonfile:
-        data = json.load(jsonfile)
-    data = data[disease][dict_equiv[looking_for]]
+        stuff = json.load(jsonfile)
+
+    if dict_equiv[looking_for] not in stuff[disease].keys() or not stuff or stuff is None:
+      return "We have no data on this, sorry."
+    data = stuff[disease][dict_equiv[looking_for]]
     resp = ""
     if looking_for == "Infectiousness" and data:
       resp = disease + " is spread "
