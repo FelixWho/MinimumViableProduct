@@ -17,7 +17,11 @@ m = build_model(cnn_config)
 
 def getResult(query):
     looking_for = m([query])[0]
-    disease = EntityRecognizer.recognize(query)[0]
+    temp = EntityRecognizer.recognize(query)
+    if temp:
+      disease = temp[0]
+    else:
+      return "The disease/question was not identified, sorry."
 
     dict_equiv = {"Treatment": "treatment_simple", "Symptom":"symptoms_description", "ShortDescription": "description_short","LongDescription": "description_long","Infectiousness": "infectiousness","Cause" : "cause", "Prevention": "prevention", "Screening":"screening"}
 
